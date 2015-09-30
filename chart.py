@@ -1,11 +1,13 @@
 import pygal
 
 line_chart = pygal.HorizontalBar()
-line_chart.title = 'September Pulsar 1 Daily Utilization'
 
+def addLine(data, machine):
+	line_chart.title = '9/10/2015 Plant 1 Average Sheet Utilization'
 
-def addLine(data):
-	line_chart.add(date, data)
+	for key in data:
+		if key[0:5] == '09/10':
+			line_chart.add(machine, data[key])
 
 def render():
 	line_chart.render_to_file('bar.svg')
