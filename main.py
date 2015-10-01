@@ -2,7 +2,8 @@ import pygal
 from pygal.style import LightSolarizedStyle
 import reader
 import chart
-from flask import Flask, Response , render_template
+from flask import Flask, Response , render_template, request, jsonify
+from datetime import date, timedelta, datetime
 
 app = Flask(__name__ , static_url_path='')
 
@@ -13,38 +14,31 @@ def index():
 
 @app.route('/chart/')
 def avgChart():
-	machines = [
-		'v1',
-		'v2', 
-		'v3',
-		'v5',
-		'l1',
-		'p1'
-	]
-
-	days = [
-		'09/07',
-		'09/08',
-		'09/09',
-		'09/10',
-		'09/11'
-	]
-
-	v1 = []
-	v2 = []
-	v3 = []
-	v5 = []
-	l1 = []
-	p1 = []
+	days        = []
+	v1          = []
+	v2          = []
+	v3          = []
+	v5          = []
+	l1          = []
+	p1          = []
+	machines    = ['v1','v2', 'v3','v5','l1','p1']
+	dateFormat  = '%Y-%m-%d'
+	beginStr    = request.args.get('begin', 0, type=str)
+	endStr      = request.args.get('end', 0, type=str)
+	begin       = datetime.strptime(beginStr, dateFormat)
+	end         = datetime.strptime(endStr, dateFormat)
+	delta       = end - begin
+	
+	#Loop thru days and add them to days list
+	for i in range(delta.days + 1):
+		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
 	line_chart = pygal.Bar(style=LightSolarizedStyle)
 	line_chart.x_labels = (days[0], days[1], days[2], days[3], days[4])
-	line_chart.title = days[0] + ' - ' + days[4] + ' Plant 1 Daily Sheet Utilization by Machine'
+	line_chart.title = days[0] + ' - ' + days[-2] + ' Plant 1 Daily Sheet Utilization by Machine'
 
-	
 	for i in machines:
 		data = reader.readData(i)
-		print data
 		for key in data:
 			if key[0:5] == days[0] or key[0:5] == days[1] or key[0:5] == days[2] or key[0:5] == days[3] or key[0:5] == days[4]:
 				if i == 'v1':

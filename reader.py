@@ -32,7 +32,7 @@ p1 = Machine('Amada Pulsar Laser  - Cell #1')
 def readFile():
 	global v1,v2,v3,v5,l1,p1
 
-	with open('data.txt') as csvfile:
+	with open('data.TXT') as csvfile:
 		reader = csv.DictReader(csvfile)
 		#Iterate thru csv file by each row
 		for row in reader:

@@ -6,16 +6,24 @@
     <title>Python Flask Bucket List App</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script language="javascript" type="text/javascript">
-        window.onload = function() {
-            var begin     = document.getElementById('begRange');
-            var end       = document.getElementById('endRange');
-            var genButton = document.getElementById('genButton');
-
-            genButton.addEventListener('click', function(){
-                alert('Begin Date is ' + begin.value + ' and End Date is ' + end.value)
+        $(function() {
+            $('#genButton').bind('click', function() {
+                $.getJSON('/chart/', {
+                    begin: $('#begRange').val(),
+                    end: $('#endRange').val()
+                }, function(data) {
+                    alert('return')
+                    $('#figure').append('
+                        <figure>
+                            <embed type="image/svg+xml" src="/chart/" />
+                        </figure>
+                    ')
+                });
+                return false
             });
-        }
+        });
 	</script>
 </head>
 <body>
@@ -41,8 +49,10 @@
 				Start Date: <input type="date" class="form-control" id="begRange">
 				End Date: <input type="date" class="form-control" id="endRange">
 				<br />
-				<a class="btn btn-lg btn-success" href="" id="genButton" role="button">Generate</a>
+				<a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
 			</form>
+            <div id="figure">
+            </div>
 
         </div>
         <footer class="footer">
