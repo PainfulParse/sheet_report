@@ -6,8 +6,8 @@ function grabDates() {
 			alert(end);
 }
 
-var button = document.getElementById('genButton');
+//var button = document.getElementById('genButton');
 
-button.addEventListener('click', grabDates);
+//button.addEventListener('click', grabDates);
 
 alert('linked')
