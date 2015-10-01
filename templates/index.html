@@ -1,16 +1,55 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+ 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Python Flask Bucket List App</title>
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<script language="javascript" type="text/javascript">
+		function grabDates() {
+			var begin = document.getElementById('begRange').value();
+			var end = document.getElementById('endRange').value();
+
+			alert(begin)
+		}
+
+		var button = document.getElementById("genButton");
+		grabDates()
+
+
+	</script>
 </head>
 <body>
- <div class="row">
- <div class="col-md-6">
- <figure >
- <embed type="image/svg+xml" src="/linechart/"/>
- </figure>
- </div>
- </div>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active"><a href="#">Home</a>
+                    </li>
+                    <li role="presentation"><a href="#">Sign In</a>
+                    </li>
+                    <li role="presentation"><a href="showSignUp">Sign Up</a>
+                    </li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">DMM Report Generator</h3>
+        </div>
  
+        <div class="jumbotron">
+            <h1>Sheet Utilization</h1>
+            <p class="lead"></p>
+ 			<form>
+				Start Date: <input type="date" class="form-control" id="begRange">
+				End Date: <input type="date" class="form-control" id="endRange">
+				<br />
+				<a class="btn btn-lg btn-success" href="" id="genButton" role="button">Generate</a>
+			</form>
+
+        </div>
+        <footer class="footer">
+            <p>&copy; Hill Phoenix 2015</p>
+        </footer>
+    </div>
 </body>
 </html>

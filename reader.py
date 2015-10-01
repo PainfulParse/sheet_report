@@ -79,22 +79,22 @@ def dateCheck(d):
 def readData(mach):
 	readFile()
 
-	if mach == 'Vipros 1':
+	if mach == 'v1':
 		v1.avgPercentage()
 		return v1.dates
-	elif mach == 'Vipros 2':
+	elif mach == 'v2':
 		v2.avgPercentage()
 		return v2.dates
-	elif mach == 'Vipros 3':
+	elif mach == 'v3':
 		v3.avgPercentage()
 		return v3.dates
-	elif mach == 'Vipros 5':
+	elif mach == 'v5':
 		v5.avgPercentage()
 		return v5.dates
-	elif mach == 'Salvagnini':
+	elif mach == 'l1':
 		l1.avgPercentage()
 		return l1.dates
-	elif mach == 'Pulsar 1':
+	elif mach == 'p1':
 		p1.avgPercentage()
 		return p1.dates
 	else:
