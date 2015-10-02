@@ -10,15 +10,13 @@
 	<script language="javascript" type="text/javascript">
         $(function() {
             $('#genButton').click(function() {
-                var begin     = $('#begRange');
-                var end       = $('#endRange');
+                var begin     = $('#begRange').val();
+                var end       = $('#endRange').val();
 
-                if (new Date(end.val()) < new Date(begin.val())) {
+                if (new Date(end) < new Date(begin)) {
                     $('#chart').html('<p>End Date must be after Start Date</p>')
-                    //TODO: Change the value of each datepicker to default 
-                } else if (begin.val() == '' || end.val() == '') {
+                } else if (begin == '' || end == '') {
                     $('#chart').html('<p>You must select a valid date</p>')
-                    //TODO: Change the value of each datepicker to default 
                 } else {
                     $('#chart').html('<p>Generating Chart....</p>')
                         $.ajax({
