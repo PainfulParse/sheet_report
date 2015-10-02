@@ -3,18 +3,22 @@
  
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Python Flask Bucket List App</title>
+    <title>DMM Report Generator</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script language="javascript" type="text/javascript">
         $(function() {
             $('#genButton').click(function() {
-                var begin = $('#begRange').val();
-                var end   = $('#endRange').val();
+                var begin     = $('#begRange');
+                var end       = $('#endRange');
 
-                if(begin == '' || end == '') {
+                if (new Date(end.val()) < new Date(begin.val())) {
+                    $('#chart').html('<p>End Date must be after Start Date</p>')
+                    //TODO: Change the value of each datepicker to default 
+                } else if (begin.val() == '' || end.val() == '') {
                     $('#chart').html('<p>You must select a valid date</p>')
+                    //TODO: Change the value of each datepicker to default 
                 } else {
                     $('#chart').html('<p>Generating Chart....</p>')
                         $.ajax({
@@ -23,6 +27,7 @@
                         type: 'POST',
                         success: function(response) {
                             $('#chart').html(response)
+                            console.log(response)
                         },
                         error: function(error) {
                             $('#chart').html('<p>Unable to generate chart</p>')
