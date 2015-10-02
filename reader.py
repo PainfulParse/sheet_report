@@ -99,13 +99,3 @@ def readData(mach):
 		return p1.dates
 	else:
 		print 'No Machine Name was passed to Reader'
-
-#chart.addLine(v1.dates, v1.name[6:14])
-#chart.addLine(v2.dates, v2.name[6:14])
-#chart.addLine(v3.dates, v3.name[6:14])
-#chart.addLine(v5.dates, v5.name[6:14])
-#chart.addLine(l1.dates, l1.name[0:10])
-#chart.addLine(p1.dates, p1.name[6:12])
-
-#chart.render(test)
-

@@ -9,19 +9,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script language="javascript" type="text/javascript">
         $(function() {
-            $('#genButton').bind('click', function() {
-                $.getJSON('/chart/', {
-                    begin: $('#begRange').val(),
-                    end: $('#endRange').val()
-                }, function(data) {
-                    alert('return')
-                    $('#figure').append('
-                        <figure>
-                            <embed type="image/svg+xml" src="/chart/" />
-                        </figure>
-                    ')
+            $('#genButton').click(function() {
+                var begin = $('#begRange').val();
+                var end   = $('#endRange').val();
+                $('#chart').html('<p>Generating Chart....</p>')
+                $.ajax({
+                    url: '/chart/',
+                    data: {begin,end},
+                    type: 'POST',
+                    success: function(response) {
+                        $('#chart').html(response)
+                    },
+                    error: function(error) {
+                        alert('Error Occurred')
+                        console.log(error)
+                    }
                 });
-                return false
             });
         });
 	</script>
@@ -51,9 +54,12 @@
 				<br />
 				<a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
 			</form>
-            <div id="figure">
-            </div>
-
+        <div id="#chart">
+            <figure id="chart" width="300" height="300">
+                <embed type="image/svg+xml" src=""/>
+            </figure>
+        </div>
+        </div>
         </div>
         <footer class="footer">
             <p>&copy; Hill Phoenix 2015</p>
