@@ -62,10 +62,12 @@ def readFile():
 						l1.addDate(when, rectYld)
 				elif machine == p1.name:
 						p1.addDate(when, rectYld)
+		reader = None
+
 
 #Check the date to see if it is a production day (Monday - Friday)
 def dateCheck(d):
-	d = datetime.strptime(d, '%m/%d/%Y').date()
+	'''d = datetime.strptime(d, '%m/%d/%Y').date()
 	i = 1
 
 	while i < 12:	
@@ -74,7 +76,9 @@ def dateCheck(d):
 				return True
 			else:
 				return False
-		i += 1
+		i += 1'''
+
+	return True
 
 def readData(mach):
 	readFile()
@@ -99,3 +103,18 @@ def readData(mach):
 		return p1.dates
 	else:
 		print 'No Machine Name was passed to Reader'
+
+#Erase references to global variables for garbage collection
+def cleanUp():
+	v1.dates    = {}
+	v2.dates    = {}
+	v3.dates    = {}
+	v5.dates    = {}
+	l1.dates    = {}
+	p1.dates    = {}
+	v1.divisors = {}
+	v2.divisors = {}
+	v3.divisors = {}
+	v5.divisors = {}
+	l1.divisors = {}
+	p1.divisors = {}

@@ -8,7 +8,6 @@ app = Flask(__name__ , static_url_path='')
 
 @app.route('/')
 def index():
-    """ render svg figures on html """
     return render_template('index.html')
 
 @app.route('/chart/', methods=['POST'])
@@ -44,6 +43,7 @@ def avgChart():
 			if key[0:5] in days:
 				if i == 'v1':
 					v1.append(data[key])
+					print(data[key])
 				elif i == 'v2':
 					v2.append(data[key])
 				elif i == 'v3':
@@ -63,8 +63,18 @@ def avgChart():
 	line_chart.add('Salvagnini', l1)
 	line_chart.add('Pulsar', p1)
 
+	reader.cleanUp()
+	days = None
+	v1   = None
+	v2   = None
+	v3   = None
+	v5   = None
+	l1   = None
+	p1   = None
+
 	print('Rendering File')
 	chart = line_chart.render(is_unicode=True)
+	line_chart.render_to_file('chart.svg')
 
 	return chart
 
