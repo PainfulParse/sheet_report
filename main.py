@@ -1,7 +1,7 @@
 import pygal
-from pygal.style import LightSolarizedStyle
+from pygal.style import CleanStyle
 import reader
-from flask import Flask, Response , render_template, request, jsonify
+from flask import Flask, Response , render_template, request, send_file
 from datetime import date, timedelta, datetime
 
 app = Flask(__name__ , static_url_path='')
@@ -33,7 +33,7 @@ def avgChart():
 		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
 	#Setup style, labels on x axis and the title of the chart
-	line_chart = pygal.Line(style=LightSolarizedStyle)
+	line_chart = pygal.Line(style=CleanStyle)
 	line_chart.x_labels = days
 	line_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
 
@@ -64,10 +64,9 @@ def avgChart():
 	line_chart.add('Pulsar', p1)
 
 	print('Rendering File')
+	chart = line_chart.render(is_unicode=True)
 
-	
-	return line_chart.render()
-
+	return chart
 
 if __name__ == '__main__':
     app.config['DEBUG'] = True
