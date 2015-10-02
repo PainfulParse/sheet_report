@@ -12,19 +12,24 @@
             $('#genButton').click(function() {
                 var begin = $('#begRange').val();
                 var end   = $('#endRange').val();
-                $('#chart').html('<p>Generating Chart....</p>')
-                $.ajax({
-                    url: '/chart/',
-                    data: {begin,end},
-                    type: 'POST',
-                    success: function(response) {
-                        $('#chart').html(response)
-                    },
-                    error: function(error) {
-                        alert('Error Occurred')
-                        console.log(error)
-                    }
-                });
+
+                if(begin == '' || end == '') {
+                    $('#chart').html('<p>You must select a valid date</p>')
+                } else {
+                    $('#chart').html('<p>Generating Chart....</p>')
+                        $.ajax({
+                        url: '/chart/',
+                        data: {begin,end},
+                        type: 'POST',
+                        success: function(response) {
+                            $('#chart').html(response)
+                        },
+                        error: function(error) {
+                            $('#chart').html('<p>Unable to generate chart</p>')
+                            console.log(error)
+                        }
+                    });
+                }
             });
         });
 	</script>
@@ -55,7 +60,7 @@
 				<a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
 			</form>
         <div id="#chart">
-            <figure id="chart" width="300" height="300">
+            <figure id="chart">
                 <embed type="image/svg+xml" src=""/>
             </figure>
         </div>
