@@ -9,14 +9,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script language="javascript" type="text/javascript">
         $(function() {
-            $('#genButton').click(function() {
+            genButton = $('#genButton')
+
+            genButton.click(function() {
                 var begin     = $('#begRange').val();
                 var end       = $('#endRange').val();
 
+                genButton.attr('disabled', 'disabled')
+
                 if (new Date(end) < new Date(begin)) {
                     $('#chart').html('<p>End Date must be after Start Date</p>')
+                    genButton.removeAttr('disabled')
                 } else if (begin == '' || end == '') {
                     $('#chart').html('<p>You must select a valid date</p>')
+                    genButton.removeAttr('disabled')
                 } else {
                     $('#chart').html('<p>Generating Chart....</p>')
                         $.ajax({
@@ -25,11 +31,13 @@
                         type: 'POST',
                         success: function(response) {
                             $('#chart').html(response)
-                            console.log(response)
+                            console.log('Response is : ' + response)
+                            genButton.removeAttr('disabled')
                         },
                         error: function(error) {
                             $('#chart').html('<p>Unable to generate chart</p>')
                             console.log(error)
+                            genButton.removeAttr('disabled')
                         }
                     });
                 }
@@ -46,7 +54,7 @@
                     </li>
                     <li role="presentation"><a href="/">Reports</a>
                     </li>
-                    <li role="presentation"><a href="/">Charts</a>
+                    <li role="presentation"><a href="/line_chart/">Charts</a>
                     </li>
                 </ul>
             </nav>
@@ -64,7 +72,7 @@
 			</form>
         <div id="#chart">
             <figure id="chart">
-            
+        
             </figure>
         </div>
         </div>
