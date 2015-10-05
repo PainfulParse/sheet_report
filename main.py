@@ -12,16 +12,16 @@ def index():
 
 @app.route('/line/')
 def serve():
-	line_chart = pygal.Line()
-	line_chart.title = 'Browser usage evolution (in %)'
-	line_chart.x_labels = map(str, range(2002, 2013))
-	line_chart.add('Firefox', [None, None,    0, 16.6,   25,   31, 36.4, 45.5, 46.3, 42.8, 37.1])
-	line_chart.add('Chrome',  [None, None, None, None, None, None,    0,  3.9, 10.8, 23.8, 35.3])
-	line_chart.add('IE',      [85.8, 84.6, 84.7, 74.5,   66, 58.6, 54.7, 44.8, 36.2, 26.6, 20.1])
-	line_chart.add('Others',  [14.2, 15.4, 15.3,  8.9,    9, 10.4,  8.9,  5.8,  6.7,  6.8,  7.5])
-	return Response(response=line_chart.render(), content_type='image/svg+xml')
+	user_chart = pygal.Line()
+	user_chart.title = 'Browser usage evolution (in %)'
+	user_chart.x_labels = map(str, range(2002, 2013))
+	user_chart.add('Firefox', [None, None,    0, 16.6,   25,   31, 36.4, 45.5, 46.3, 42.8, 37.1])
+	user_chart.add('Chrome',  [None, None, None, None, None, None,    0,  3.9, 10.8, 23.8, 35.3])
+	user_chart.add('IE',      [85.8, 84.6, 84.7, 74.5,   66, 58.6, 54.7, 44.8, 36.2, 26.6, 20.1])
+	user_chart.add('Others',  [14.2, 15.4, 15.3,  8.9,    9, 10.4,  8.9,  5.8,  6.7,  6.8,  7.5])
+	return Response(response=user_chart.render(), content_type='image/svg+xml')
 
-@app.route('/line_chart/')
+@app.route('/user_chart/')
 def display():
 	return """
 	<html>
@@ -47,6 +47,7 @@ def avgChart():
 	dateFormat  = '%Y-%m-%d'
 	beginStr    = request.form.get('begin', type=str)
 	endStr      = request.form.get('end', type=str)
+	freq   = request.form.get('freq', type=str)
 	begin       = datetime.strptime(beginStr, dateFormat)
 	end         = datetime.strptime(endStr, dateFormat)
 	delta       = end - begin
@@ -55,10 +56,17 @@ def avgChart():
 	for i in range(delta.days + 1):
 		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
+	if freq == 'Daily':
+		user_chart = pygal.Bar(style=CleanStyle)
+	elif freq == 'Weekly':
+		user_chart = pygal.Line(style=CleanStyle)
+	elif freq == 'Monthly':
+		user_chart = pygal.StackedLine(fill=True)
+
 	#Setup style, labels on x axis and the title of the chart
-	line_chart = pygal.Line(style=CleanStyle)
-	line_chart.x_labels = days
-	line_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
+	#user_chart = pygal.Line(style=CleanStyle)
+	user_chart.x_labels = days
+	user_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
 
 	#Loop thru machines list and assign correct day and machine to be plotted on chart
 	for i in machines:
@@ -79,12 +87,12 @@ def avgChart():
 					p1.append(data[key])
 
 	#Add data to chart by machine
-	line_chart.add('Vipros 1', v1)
-	line_chart.add('Vipros 2', v2)
-	line_chart.add('Vipros 3', v3)
-	line_chart.add('Vipros 5', v5)
-	line_chart.add('Salvagnini', l1)
-	line_chart.add('Pulsar', p1)
+	user_chart.add('Vipros 1', v1)
+	user_chart.add('Vipros 2', v2)
+	user_chart.add('Vipros 3', v3)
+	user_chart.add('Vipros 5', v5)
+	user_chart.add('Salvagnini', l1)
+	user_chart.add('Pulsar', p1)
 
 	reader.cleanUp()
 	days = None
@@ -95,8 +103,8 @@ def avgChart():
 	l1   = None
 	p1   = None
 
-	chart = line_chart.render(is_unicode=True)
-	chart_file = line_chart.render_to_file('chart.svg')
+	chart = user_chart.render(is_unicode=True)
+	chart_file = user_chart.render_to_file('chart.svg')
 	return chart
 
 if __name__ == '__main__':

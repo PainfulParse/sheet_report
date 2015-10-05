@@ -14,10 +14,14 @@
             genButton.click(function() {
                 var begin     = $('#begRange').val();
                 var end       = $('#endRange').val();
+                var freq      = $('#select_freq').val()
 
                 genButton.attr('disabled', 'disabled')
 
-                if (new Date(end) < new Date(begin)) {
+                if (freq == 'none'){
+                    $('#chart').html('<p>Select Chart Frequency</p>')
+                    genButton.removeAttr('disabled')
+                } else if (new Date(end) < new Date(begin)) {
                     $('#chart').html('<p>End Date must be after Start Date</p>')
                     genButton.removeAttr('disabled')
                 } else if (begin == '' || end == '') {
@@ -27,7 +31,7 @@
                     $('#chart').html('<p>Generating Chart....</p>')
                         $.ajax({
                         url: '/chart/',
-                        data: {begin,end},
+                        data: {begin,end,freq},
                         type: 'POST',
                         success: function(response) {
                             $('#chart').html(response)
@@ -64,9 +68,20 @@
         <div class="jumbotron">
             <h1>Sheet Utilization</h1>
             <p class="lead"></p>
+            <div class="form-group">
+            <label for="select_type">Select Frequency:</label>
+            <select class="form-control" id="select_freq">
+                <option value="none">-----</option>
+                <option value="Daily">Daily</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Monthly">Monthly</option>
+            </select>
+            </div>
  			<form>
-				Start Date: <input type="date" class="form-control" id="begRange">
-				End Date: <input type="date" class="form-control" id="endRange">
+                <label for="begRange">Starting Date:</label>
+				<input type="date" class="form-control" id="begRange">
+				<label for="endRange">Ending Date:</label>
+                <input type="date" class="form-control" id="endRange">
 				<br />
 				<a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
 			</form>
