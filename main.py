@@ -1,5 +1,5 @@
 import pygal
-from pygal.style import CleanStyle
+from pygal.style import CleanStyle, LightColorizedStyle
 import reader
 from flask import Flask, Response , render_template, request
 from datetime import date, timedelta, datetime
@@ -9,6 +9,18 @@ app = Flask(__name__ , static_url_path='')
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/about/')
+def about():
+	return render_template('about.html')
+
+@app.route('/forms/')
+def forms():
+	return render_template('forms.html')
+
+@app.route('/reports/')
+def reports():
+	return render_template('reports.html')
 
 @app.route('/line/')
 def serve():
@@ -21,20 +33,11 @@ def serve():
 	user_chart.add('Others',  [14.2, 15.4, 15.3,  8.9,    9, 10.4,  8.9,  5.8,  6.7,  6.8,  7.5])
 	return Response(response=user_chart.render(), content_type='image/svg+xml')
 
-@app.route('/user_chart/')
+@app.route('/charts/')
 def display():
-	return """
-	<html>
-    	<body>
-        	<h1>hello pygal</h1>
-        	<figure>
-        		<embed type="image/svg+xml" src="/line/" />
-        	</figure>
-    	</body>
-	</html>'
-	"""
+	return render_template('charts.html')
 
-@app.route('/chart/', methods=['POST'])
+@app.route('/build/', methods=['POST'])
 def avgChart():
 	days        = []
 	v1          = []
@@ -47,7 +50,7 @@ def avgChart():
 	dateFormat  = '%Y-%m-%d'
 	beginStr    = request.form.get('begin', type=str)
 	endStr      = request.form.get('end', type=str)
-	freq   = request.form.get('freq', type=str)
+	freq        = request.form.get('freq', type=str)
 	begin       = datetime.strptime(beginStr, dateFormat)
 	end         = datetime.strptime(endStr, dateFormat)
 	delta       = end - begin
@@ -56,11 +59,11 @@ def avgChart():
 	for i in range(delta.days + 1):
 		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
-	if freq == 'Daily':
-		user_chart = pygal.Bar(style=CleanStyle)
-	elif freq == 'Weekly':
+	if freq == 'Bar':
+		user_chart = pygal.Bar(style=LightColorizedStyle)
+	elif freq == 'Line':
 		user_chart = pygal.Line(style=CleanStyle)
-	elif freq == 'Monthly':
+	elif freq == 'Stacked':
 		user_chart = pygal.StackedLine(fill=True)
 
 	#Setup style, labels on x axis and the title of the chart

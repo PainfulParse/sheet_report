@@ -14,12 +14,14 @@
             genButton.click(function() {
                 var begin     = $('#begRange').val();
                 var end       = $('#endRange').val();
-                var freq      = $('#select_freq').val()
+                var freq      = $('#select_chart_type').val()
+                var begMonth  = $('#select_beg_month').val()
+                var endMonth  = $('#select_end_month').val()
 
                 genButton.attr('disabled', 'disabled')
 
                 if (freq == 'none'){
-                    $('#chart').html('<p>Select Chart Frequency</p>')
+                    $('#chart').html('<p>Select Chart Type</p>')
                     genButton.removeAttr('disabled')
                 } else if (new Date(end) < new Date(begin)) {
                     $('#chart').html('<p>End Date must be after Start Date</p>')
@@ -30,7 +32,7 @@
                 } else {
                     $('#chart').html('<p>Generating Chart....</p>')
                         $.ajax({
-                        url: '/chart/',
+                        url: '/build/',
                         data: {begin,end,freq},
                         type: 'POST',
                         success: function(response) {
@@ -56,9 +58,13 @@
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation" class="active"><a href="/">Home</a>
                     </li>
-                    <li role="presentation"><a href="/">Reports</a>
+                    <li role="presentation"><a href="/reports/">Reports</a>
                     </li>
-                    <li role="presentation"><a href="/line_chart/">Charts</a>
+                    <li role="presentation"><a href="/charts/">Charts</a>
+                    </li>
+                    <li role="presentation"><a href="/forms/">Forms</a>
+                    </li>
+                    <li role="presentation"><a href="/about">About</a>
                     </li>
                 </ul>
             </nav>
@@ -67,14 +73,14 @@
  
         <div class="jumbotron">
             <h1>Sheet Utilization</h1>
-            <p class="lead"></p>
+            <p class="lead">Sheet Utilization By Date Range</p>
             <div class="form-group">
-            <label for="select_type">Select Frequency:</label>
-            <select class="form-control" id="select_freq">
+            <label for="select_type">Chart Type:</label>
+            <select class="form-control" id="select_chart_type">
                 <option value="none">-----</option>
-                <option value="Daily">Daily</option>
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
+                <option value="Bar">Bar</option>
+                <option value="Line">Line</option>
+                <option value="Stacked">Stacked Line</option>
             </select>
             </div>
  			<form>

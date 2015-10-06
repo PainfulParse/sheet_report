@@ -10,9 +10,11 @@ class Machine:
 
 	#Add Date to Dict for storage
 	def addDate(self, date, yld):
+		#If a date already exists then add to it
 		if self.dates.get(date):
 			self.dates[date]    += yld
 			self.divisors[date] += 1
+		#create new date if one does not exist
 		else:
 			self.dates[date]    = yld
 			self.divisors[date] = 1
@@ -22,6 +24,7 @@ class Machine:
 		for i in sorted(self.dates):
 			self.dates[i] = round(100 * (self.dates[i] / self.divisors[i]), 1)
 
+#Create Machine Objects
 v1 = Machine('Amada Vipros 1 - Cell #1')
 v2 = Machine('Amada Vipros 2 - Cell #1')
 v3 = Machine('Amada Vipros 3 - Cell #2')

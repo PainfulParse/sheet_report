@@ -1,0 +1,2 @@
+Material Type,Sheets Required,Sheets Completed,Run Time (Minutes),Minimum Rect.Yield,Minimum Actual Yield,Requested Rect. Yield,Requested Actual Yield,Time Completed,Date Completed,Work Center,Yield Weight (Pounds),Scrap Allocation,Minimum Sheet Length,Minimum Sheet Width,Requested Sheet Length,Requested Sheet Width,ISO Check Off,Quality Sign Off,Nest Generation Options,Nest Identifier
+

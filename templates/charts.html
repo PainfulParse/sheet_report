@@ -15,9 +15,13 @@
                 <ul class="nav nav-pills pull-right">
                     <li role="presentation"><a href="/">Home</a>
                     </li>
-                    <li role="presentation"><a href="/">Reports</a>
+                    <li role="presentation"><a href="/reports/">Reports</a>
                     </li>
-                    <li role="presentation" class="active"><a href="/line_chart/">Charts</a>
+                    <li role="presentation" class="active"><a href="/charts/">Charts</a>
+                    </li>
+                    <li role="presentation"><a href="/forms/">Forms</a>
+                    </li>
+                    <li role="presentation"><a href="/about">About</a>
                     </li>
                 </ul>
             </nav>
@@ -26,11 +30,59 @@
  
         <div class="jumbotron">
             <h1>Charts</h1>
-        <div id="#chart">
-            <figure id="chart">
-            	<embed type="image/svg+xml" src='{{ chart }}' />
-            </figure>
+            <p class="lead">Sheet Utilization by Date Range</p>
+            <form>
+                <label for="begRange">Starting Date:</label>
+                <input type="date" class="form-control" id="begRange">
+                <label for="endRange">Ending Date:</label>
+                <input type="date" class="form-control" id="endRange">
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
+            </form>
+            <br />
+            <hr>
+            <p class="lead">Sheet Utilization by Day</p>
+            <div class="form-group">
+                <label for="day">Choose Day:</label>
+                <input type="date" class="form-control" id="day">
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
+            </div>
+            <hr>
+            <p class="lead">Sheet Utilization by Week</p>
+            <div class="form-group">
+                <label for="select_week">Choose Week:</label>
+                <select class="form-control" id="select_week">
+                    <option value="none">-----</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                </select>
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
+            </div>
+            <hr>
+            <br />
+            <p class="lead">Sheet Utilization by Month</p>
+            <div class="form-group">
+                <label for="select_month">Choose Month:</label>
+                <select class="form-control" id="select_month">
+                    <option value="none">-----</option>
+                    <option value="7">July</option>
+                    <option value="8">August</option>
+                    <option value="9">September</option>
+                </select>
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
+            </div>
         </div>
+        </div>
+        <footer class="footer">
+            <p>&copy; Hill Phoenix 2015</p>
+        </footer>
+    </div>
+</body>
+</html>
         </div>
         </div>
         <footer class="footer">
