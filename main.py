@@ -1,4 +1,5 @@
 import pygal
+import json
 from pygal.style import CleanStyle, LightColorizedStyle
 import reader
 from flask import Flask, Response , render_template, request
@@ -46,19 +47,21 @@ def avgChart():
 	v5          = []
 	l1          = []
 	p1          = []
-	machines    = ['v1','v2', 'v3','v5','l1','p1']
 	dateFormat  = '%Y-%m-%d'
 	beginStr    = request.form.get('begin', type=str)
 	endStr      = request.form.get('end', type=str)
 	freq        = request.form.get('freq', type=str)
+	machines    = request.form.get('mach', type=str)
+	mach        = json.loads(machines)
 	begin       = datetime.strptime(beginStr, dateFormat)
 	end         = datetime.strptime(endStr, dateFormat)
 	delta       = end - begin
-	
+
 	#Loop thru days and add them to days list
 	for i in range(delta.days + 1):
 		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
+	#Setup style of chart
 	if freq == 'Bar':
 		user_chart = pygal.Bar(style=LightColorizedStyle)
 	elif freq == 'Line':
@@ -66,14 +69,28 @@ def avgChart():
 	elif freq == 'Stacked':
 		user_chart = pygal.StackedLine(fill=True)
 
-	#Setup style, labels on x axis and the title of the chart
-	#user_chart = pygal.Line(style=CleanStyle)
+	#Setup labels on x axis and the title of the chart
 	user_chart.x_labels = days
 	user_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
 
 	#Loop thru machines list and assign correct day and machine to be plotted on chart
-	for i in machines:
+	for i in mach:
+		#Add data to chart by machine
+		if i == 'v1':
+			user_chart.add('Vipros 1', v1)
+		elif i == 'v2':
+			user_chart.add('Vipros 2', v2)
+		elif i == 'v3':
+			user_chart.add('Vipros 3', v3)
+		elif i == 'v5':
+			user_chart.add('Vipros 5', v5)
+		elif i == 'l1':
+			user_chart.add('Salvagnini', l1)
+		elif i == 'p1':
+			user_chart.add('Pulsar', p1)
+
 		data = reader.readData(i)
+
 		for key in data:
 			if key[0:5] in days:
 				if i == 'v1':
@@ -89,13 +106,6 @@ def avgChart():
 				elif i == 'p1':
 					p1.append(data[key])
 
-	#Add data to chart by machine
-	user_chart.add('Vipros 1', v1)
-	user_chart.add('Vipros 2', v2)
-	user_chart.add('Vipros 3', v3)
-	user_chart.add('Vipros 5', v5)
-	user_chart.add('Salvagnini', l1)
-	user_chart.add('Pulsar', p1)
 
 	reader.cleanUp()
 	days = None
