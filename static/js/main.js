@@ -2,18 +2,25 @@ $(function() {
             genButton = $('#genButton')
 
             genButton.click(function() {
-                var begin     = $('#begRange').val();
-                var end       = $('#endRange').val();
-                var chartType = $('#select_chart_type').val();
-                var begMonth  = $('#select_beg_month').val();
-                var endMonth  = $('#select_end_month').val();
-                var v1Checked = $('#v1').prop('checked');
-                var v2Checked = $('#v2').prop('checked');
-                var v3Checked = $('#v3').prop('checked');
-                var v5Checked = $('#v5').prop('checked');
-                var l1Checked = $('#l1').prop('checked');
-                var p1Checked = $('#p1').prop('checked');
-                var mach      = [];
+                var begin      = $('#begRange').val();
+                var end        = $('#endRange').val();
+                var chartType  = $('#select_chart_type').val();
+                var begMonth   = $('#select_beg_month').val();
+                var endMonth   = $('#select_end_month').val();
+                var v1Checked  = $('#v1').prop('checked');
+                var v2Checked  = $('#v2').prop('checked');
+                var v3Checked  = $('#v3').prop('checked');
+                var v5Checked  = $('#v5').prop('checked');
+                var l1Checked  = $('#l1').prop('checked');
+                var p1Checked  = $('#p1').prop('checked');
+                var t1Checked  = $('#t1').prop('checked');
+                var t2Checked  = $('#t2').prop('checked');
+                var sg1Checked = $('#sg1').prop('checked');
+                var sg2Checked = $('#sg2').prop('checked');
+                var sg3Checked = $('#sg3').prop('checked');
+                var sg4Checked = $('#sg4').prop('checked');
+                var sg5Checked = $('#sg5').prop('checked');
+                var mach       = [];
 
                 //Disabled generate button so user can't keep submitting
                 genButton.attr('disabled', 'disabled');
@@ -36,6 +43,27 @@ $(function() {
                 }
                 if (p1Checked) {
                     mach.push('p1')
+                }
+                if (t1Checked) {
+                    mach.push('t1')
+                } 
+                if (t2Checked) {
+                    mach.push('t2')
+                }
+                if (sg1Checked) {
+                    mach.push('sg1')
+                }
+                if (sg2Checked) {
+                    mach.push('sg2')
+                } 
+                if (sg3Checked) {
+                    mach.push('sg3')
+                }
+                if (sg4Checked) {
+                    mach.push('sg4')
+                }
+                if (sg5Checked) {
+                    mach.push('sg5')
                 }
 
                 //Convert array to JSON string to be passed to python script main.py

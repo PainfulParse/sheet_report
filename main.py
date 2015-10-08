@@ -47,6 +47,13 @@ def avgChart():
 	v5          = []
 	l1          = []
 	p1          = []
+	t1          = []
+	t2          = []
+	sg1         = []
+	sg2         = []
+	sg3         = []
+	sg4         = []
+	sg5         = []
 	dateFormat  = '%Y-%m-%d'
 	beginStr    = request.form.get('begin', type=str)
 	endStr      = request.form.get('end', type=str)
@@ -73,6 +80,8 @@ def avgChart():
 	user_chart.x_labels = days
 	user_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
 
+	print mach
+
 	#Loop thru machines list and assign correct day and machine to be plotted on chart
 	for i in mach:
 		#Add data to chart by machine
@@ -88,6 +97,20 @@ def avgChart():
 			user_chart.add('Salvagnini', l1)
 		elif i == 'p1':
 			user_chart.add('Pulsar', p1)
+		elif i == 't1':
+			user_chart.add('FMS 1', t1)
+		elif i == 't2':
+			user_chart.add('FMS 2', t2)
+		elif i == 'sg1':
+			user_chart.add('SG 1', sg1)
+		elif i == 'sg2':
+			user_chart.add('SG 2', sg2)
+		elif i == 'sg3':
+			user_chart.add('SG 3', sg3)
+		elif i == 'sg4':
+			user_chart.add('SG 4', sg4)
+		elif i == 'sg5':
+			user_chart.add('SG 5', sg5)
 
 		data = reader.readData(i)
 
@@ -105,7 +128,20 @@ def avgChart():
 					l1.append(data[key])
 				elif i == 'p1':
 					p1.append(data[key])
-
+				elif i == 't1':
+					t1.append(data[key])
+				elif i == 't2':
+					t2.append(data[key])
+				elif i == 'sg1':
+					sg1.append(data[key])
+				elif i == 'sg2':
+					sg2.append(data[key])
+				elif i == 'sg3':
+					sg3.append(data[key])
+				elif i == 'sg4':
+					sg4.append(data[key])
+				elif i == 'sg5':
+					sg5.append(data[key])
 
 	reader.cleanUp()
 	days = None
@@ -115,6 +151,13 @@ def avgChart():
 	v5   = None
 	l1   = None
 	p1   = None
+	t1   = None
+	t2   = None
+	sg1  = None
+	sg2  = None
+	sg3  = None
+	sg4  = None
+	sg5  = None
 
 	chart = user_chart.render(is_unicode=True)
 	chart_file = user_chart.render_to_file('chart.svg')
