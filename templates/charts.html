@@ -7,6 +7,7 @@
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
 <body>
     <div class="container">
@@ -30,6 +31,22 @@
  
         <div class="jumbotron">
             <h1>Charts</h1>
+            <label>Select Machines</label>
+            <br />
+            <label class="checkbox-inline">
+                <input id="v1" type="checkbox" value="v1" checked>Vipros 1</label>
+            <label class="checkbox-inline">
+                <input id="v2" type="checkbox" value="v2" checked>Vipros 2</label>
+            <label class="checkbox-inline">
+                <input id="v3" type="checkbox" value="v3" checked>Vipros 3</label>
+            <label class="checkbox-inline">
+                <input id="v5" type="checkbox" value="v5" checked>Vipros 5</label>
+            <label class="checkbox-inline">
+                <input id="l1" type="checkbox" value="l1" checked>Salvagnini Laser</label>
+            <label class="checkbox-inline">
+                <input id="p1" type="checkbox" value="p1" checked>Pulsar Laser</label>
+            <br />
+            <hr>
             <p class="lead">Sheet Utilization by Date Range</p>
             <form>
                 <label for="begRange">Starting Date:</label>
@@ -46,7 +63,7 @@
                 <label for="day">Choose Day:</label>
                 <input type="date" class="form-control" id="day">
                 <br />
-                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton" role="button">Generate</a>
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="genButton_byDay" role="button">Generate</a>
             </div>
             <hr>
             <p class="lead">Sheet Utilization by Week</p>

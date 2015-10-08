@@ -50,7 +50,7 @@ def avgChart():
 	dateFormat  = '%Y-%m-%d'
 	beginStr    = request.form.get('begin', type=str)
 	endStr      = request.form.get('end', type=str)
-	freq        = request.form.get('freq', type=str)
+	chartType   = request.form.get('chartType', type=str)
 	machines    = request.form.get('mach', type=str)
 	mach        = json.loads(machines)
 	begin       = datetime.strptime(beginStr, dateFormat)
@@ -62,11 +62,11 @@ def avgChart():
 		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
 	#Setup style of chart
-	if freq == 'Bar':
+	if chartType == 'Bar':
 		user_chart = pygal.Bar(style=LightColorizedStyle)
-	elif freq == 'Line':
+	elif chartType == 'Line':
 		user_chart = pygal.Line(style=CleanStyle)
-	elif freq == 'Stacked':
+	elif chartType == 'Stacked':
 		user_chart = pygal.StackedLine(fill=True)
 
 	#Setup labels on x axis and the title of the chart
