@@ -1,6 +1,5 @@
 import csv
-import chart
-from datetime import datetime
+#removed datetime
 
 class Machine:
 	def __init__(self, name):
@@ -39,6 +38,7 @@ v2  = Machine('Amada Vipros 2 - Cell #1')
 v3  = Machine('Amada Vipros 3 - Cell #2')
 v5  = Machine('Amada Vipros 5 - Cell #3')
 
+#Read CSV file exported from DMM and add dates to machine objects
 def readFile():
 	global v1,v2,v3,v5,l1,p1,t1,t2,sg1,sg2,sg3,sg4,sg5
 

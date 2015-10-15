@@ -6,6 +6,7 @@
     <title>DMM Report Generator</title>
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/main.css')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
 </head>
@@ -43,14 +44,20 @@
                 <input id="v3" type="checkbox" value="v3" checked>Vipros 3</label>
             <label class="checkbox-inline">
                 <input id="v5" type="checkbox" value="v5" checked>Vipros 5</label>
+            <br />
+            <br />
             <label class="checkbox-inline">
                 <input id="t1" type="checkbox" value="t1" checked>Tower 1</label>
             <label class="checkbox-inline">
                 <input id="t2" type="checkbox" value="t2" checked>Tower 2</label>
+            <br />
+            <br />
             <label class="checkbox-inline">
                 <input id="l1" type="checkbox" value="l1" checked>Salvagnini Laser</label>
             <label class="checkbox-inline">
                 <input id="p1" type="checkbox" value="p1" checked>Pulsar Laser</label>
+            <br />
+            <br />
             <label class="checkbox-inline">
                 <input id="sg1" type="checkbox" value="sg1" checked>SG 1</label>
             <label class="checkbox-inline">
@@ -68,7 +75,6 @@
                 <option value="none">-----</option>
                 <option value="Bar">Bar</option>
                 <option value="Line">Line</option>
-                <option value="Stacked">Stacked Line</option>
             </select>
             </div>
  			<form>

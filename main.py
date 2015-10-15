@@ -2,6 +2,7 @@ import pygal
 import json
 from pygal.style import CleanStyle, LightColorizedStyle
 import reader
+import read_demand
 from flask import Flask, Response , render_template, request
 from datetime import date, timedelta, datetime
 
@@ -22,6 +23,22 @@ def forms():
 @app.route('/reports/')
 def reports():
 	return render_template('reports.html')
+
+@app.route('/reports/paint/', methods=['POST'])
+def paint_report():
+	dateStr = request.form.get('date', type=str)
+	report  = request.form.get('report', type=str)
+	date    = datetime.strptime(dateStr, '%Y-%m-%d').strftime('%m/%d/%Y')
+
+	return read_demand.readFile(date, report)
+
+@app.route('/reports/non_paint/', methods=['POST'])
+def non_paint_report():
+	dateStr = request.form.get('date', type=str)
+	report  = request.form.get('report', type=str)
+	date    = datetime.strptime(dateStr, '%Y-%m-%d').strftime('%m/%d/%Y')
+
+	return read_demand.readFile(date, report)
 
 @app.route('/line/')
 def serve():
@@ -66,7 +83,8 @@ def avgChart():
 
 	#Loop thru days and add them to days list
 	for i in range(delta.days + 1):
-		days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
+		if i != 0:
+			days.append(str(begin + timedelta(days=i))[5:10].replace('-', '/'))
 
 	#Setup style of chart
 	if chartType == 'Bar':
@@ -79,8 +97,6 @@ def avgChart():
 	#Setup labels on x axis and the title of the chart
 	user_chart.x_labels = days
 	user_chart.title = days[0] + ' - ' + days[-1] + ' Plant 1 Daily Sheet Utilization by Machine'
-
-	print mach
 
 	#Loop thru machines list and assign correct day and machine to be plotted on chart
 	for i in mach:
@@ -160,7 +176,6 @@ def avgChart():
 	sg5  = None
 
 	chart = user_chart.render(is_unicode=True)
-	chart_file = user_chart.render_to_file('chart.svg')
 	return chart
 
 if __name__ == '__main__':

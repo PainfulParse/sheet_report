@@ -7,6 +7,7 @@
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="{{url_for('static', filename='js/demand.js')}}"></script>
 </head>
 <body>
     <div class="container">
@@ -30,6 +31,29 @@
  
         <div class="jumbotron">
             <h1>Reports</h1>
+            <p>Paint Demand Remaining</p>
+            <form>
+                <label for="paint_date">Choose Date:</label>
+                <input type="date" class="form-control" id="paint_date">
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="display_paint" role="button">Display</a>
+            </form>
+            <br />
+            <div id="paintDiv">
+
+            </div>
+            <hr>
+            <p>Non-Paint Demand Remaining</p>
+            <form>
+                <label for="endRange">Choose Date:</label>
+                <input type="date" class="form-control" id="non_paint_date">
+                <br />
+                <a class="btn btn-lg btn-success" href="javascript:void()" id="display_non_paint" role="button">Display</a>
+            </form>
+            <br />
+            <div id="nonPaintDiv">
+                
+            </div>
         </div>
         </div>
         <footer class="footer">
